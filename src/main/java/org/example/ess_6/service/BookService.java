@@ -17,8 +17,12 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> findAllBooks() {
-        return bookRepository.findAll();
+    public List<Book> findAllBooks(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return bookRepository.findAll();
+        } else {
+            return bookRepository.search(stringFilter);
+        }
     }
 
     public Optional<Book> findBookById(Long id) {
