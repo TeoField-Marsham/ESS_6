@@ -7,7 +7,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import jakarta.annotation.security.PermitAll;
@@ -50,7 +49,7 @@ public class BookView extends VerticalLayout{
     }
 
     private void configureForm() {
-        form = new BookForm(authorService.findAllAuthors(), publisherService.findAllPublishers());
+        form = new BookForm(authorService.findAllAuthors(""), publisherService.findAllPublishers());
         form.setWidth("25em");
         form.addSaveListener(this::saveBook); // <1>
         form.addDeleteListener(this::deleteBook); // <2>

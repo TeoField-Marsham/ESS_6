@@ -6,7 +6,6 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -14,35 +13,20 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.shared.Registration;
 import org.example.ess_6.model.Author;
-import org.example.ess_6.model.Book;
-import org.example.ess_6.model.Publisher;
 
-import java.util.List;
-
-public class BookForm extends FormLayout {
-    TextField title = new TextField("Title");
-    ComboBox<Author> author = new ComboBox<>("Author");
-    ComboBox<Publisher> publisher = new ComboBox<>("Publisher");
+public class AuthorForm extends FormLayout {
+    TextField name = new TextField("Name");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-    // Other fields omitted
-    Binder<Book> binder = new BeanValidationBinder<>(Book.class);
+    Binder<Author> binder = new BeanValidationBinder<>(Author.class);
 
-    public BookForm(List<Author> authors, List<Publisher> publishers) {
-        addClassName("book-form");
+    public AuthorForm() {
+        addClassName("author-form");
         binder.bindInstanceFields(this);
 
-        publisher.setItems(publishers);
-        publisher.setItemLabelGenerator(Publisher::getName);
-        author.setItems(authors);
-        author.setItemLabelGenerator(Author::getName);
-
-        add(title,
-                publisher,
-                author,
-                createButtonsLayout());
+        add(name, createButtonsLayout());
     }
 
     private Component createButtonsLayout() {
@@ -68,39 +52,39 @@ public class BookForm extends FormLayout {
     }
 
 
-    public void setBook(Book book) {
-        binder.setBean(book); // <1>
+    public void setAuthor(Author author) {
+        binder.setBean(author); // <1>
     }
 
     // Events
-    public static abstract class BookFormEvent extends ComponentEvent<BookForm> {
-        private Book book;
+    public static abstract class AuthorFormEvent extends ComponentEvent<AuthorForm> {
+        private Author author;
 
-        protected BookFormEvent(BookForm source, Book book) {
+        protected AuthorFormEvent(AuthorForm source, Author author) {
             super(source, false);
-            this.book = book;
+            this.author = author;
         }
 
-        public Book getBook() {
-            return book;
-        }
-    }
-
-    public static class SaveEvent extends BookFormEvent {
-        SaveEvent(BookForm source, Book book) {
-            super(source, book);
+        public Author getAuthor() {
+            return author;
         }
     }
 
-    public static class DeleteEvent extends BookFormEvent {
-        DeleteEvent(BookForm source, Book book) {
-            super(source, book);
+    public static class SaveEvent extends AuthorFormEvent {
+        SaveEvent(AuthorForm source, Author author) {
+            super(source, author);
+        }
+    }
+
+    public static class DeleteEvent extends AuthorFormEvent {
+        DeleteEvent(AuthorForm source, Author author) {
+            super(source, author);
         }
 
     }
 
-    public static class CloseEvent extends BookFormEvent {
-        CloseEvent(BookForm source) {
+    public static class CloseEvent extends AuthorFormEvent {
+        CloseEvent(AuthorForm source) {
             super(source, null);
         }
     }

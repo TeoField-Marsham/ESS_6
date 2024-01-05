@@ -17,8 +17,12 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public List<Author> findAllAuthors() {
-        return authorRepository.findAll();
+    public List<Author> findAllAuthors(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return authorRepository.findAll();
+        } else {
+            return authorRepository.search(stringFilter);
+        }
     }
 
     public Optional<Author> findAuthorById(Long id) {
