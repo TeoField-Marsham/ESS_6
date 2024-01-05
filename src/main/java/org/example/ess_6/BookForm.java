@@ -16,6 +16,8 @@ import com.vaadin.flow.shared.Registration;
 import org.example.ess_6.model.Author;
 import org.example.ess_6.model.Book;
 import org.example.ess_6.model.Publisher;
+import org.example.ess_6.service.AuthorService;
+import org.example.ess_6.service.PublisherService;
 
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class BookForm extends FormLayout {
     TextField title = new TextField("Title");
     ComboBox<Author> author = new ComboBox<>("Author");
     ComboBox<Publisher> publisher = new ComboBox<>("Publisher");
+    AuthorService authorService;
+    PublisherService publisherService;
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -30,7 +34,7 @@ public class BookForm extends FormLayout {
     // Other fields omitted
     Binder<Book> binder = new BeanValidationBinder<>(Book.class);
 
-    public BookForm(List<Author> authors, List<Publisher> publishers) {
+    public BookForm(List<Author> authors, List<Publisher> publishers, AuthorService authorService, PublisherService publisherService) {
         addClassName("book-form");
         binder.bindInstanceFields(this);
 
@@ -39,10 +43,23 @@ public class BookForm extends FormLayout {
         author.setItems(authors);
         author.setItemLabelGenerator(Author::getName);
 
+        this.authorService = authorService;
+        this.publisherService = publisherService;
+        refreshAuthors();
+        refreshPublishers();
+
         add(title,
                 publisher,
                 author,
                 createButtonsLayout());
+    }
+
+    public void refreshAuthors(){
+        author.setItems(authorService.findAllAuthors(""));
+    }
+
+    public void refreshPublishers(){
+        publisher.setItems(publisherService.findAllPublishers(""));
     }
 
     private Component createButtonsLayout() {

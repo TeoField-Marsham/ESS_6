@@ -33,8 +33,10 @@ public class BookView extends VerticalLayout{
     AuthorService authorService;
     PublisherService publisherService;
 
-    public BookView(BookService service) {
+    public BookView(BookService service, AuthorService authorService, PublisherService publisherService) {
         this.service = service;
+        this.authorService = authorService;
+        this.publisherService = publisherService;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -55,11 +57,11 @@ public class BookView extends VerticalLayout{
 
     private void configureForm() {
         if(checkNull())
-        form = new BookForm(authorService.findAllAuthors(""), publisherService.findAllPublishers(""));
+        form = new BookForm(authorService.findAllAuthors(""), publisherService.findAllPublishers(""), authorService, publisherService);
         else{
             List<Author> authors = Collections.emptyList();
             List<Publisher> publishers = Collections.emptyList();
-            form = new BookForm(authors, publishers);
+            form = new BookForm(authors, publishers, authorService, publisherService);
         }
         form.setWidth("25em");
         form.addSaveListener(this::saveBook); // <1>
@@ -75,6 +77,25 @@ public class BookView extends VerticalLayout{
         } catch (Exception e){
             return false;
         }
+    }
+
+    private void updateAuthorList(){
+        form.refreshAuthors();
+    }
+
+    private void updatePublisherList(){
+        form.refreshPublishers();
+    }
+
+    private void saveAuthor(Author author){
+        authorService.saveAuthor(author);
+        updateAuthorList();
+        updateList();
+    }
+    private void savePublisher(Publisher publisher){
+        publisherService.savePublisher(publisher);
+        updatePublisherList();
+        updateList();
     }
 
     private void saveBook(BookForm.SaveEvent event) {
