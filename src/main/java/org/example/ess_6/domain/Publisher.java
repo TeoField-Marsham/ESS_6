@@ -1,6 +1,8 @@
-package org.example.ess_6;
+package org.example.ess_6.domain;
 
 import jakarta.persistence.*;
+import org.example.ess_6.domain.Book;
+
 import java.util.HashSet;
 import java.util.Set;
 
