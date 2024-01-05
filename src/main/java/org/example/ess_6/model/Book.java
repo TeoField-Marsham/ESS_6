@@ -1,4 +1,4 @@
-package org.example.ess_6.domain;
+package org.example.ess_6.model;
 
 import jakarta.persistence.*;
 

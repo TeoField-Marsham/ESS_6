@@ -1,4 +1,4 @@
-package org.example.ess_6.domain;
+package org.example.ess_6.model;
 
 import jakarta.persistence.*;
 
@@ -6,21 +6,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Author {
+public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "publisher")
     private Set<Book> books = new HashSet<>();
 
     // Constructors
-    public Author() {
+    public Publisher() {
     }
 
-    public Author(String name) {
+    public Publisher(String name) {
         this.name = name;
     }
 
