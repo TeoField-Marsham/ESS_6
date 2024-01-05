@@ -12,6 +12,6 @@ import org.springframework.context.annotation.Scope;
 @Route(value = "", layout = MainLayout.class)
 public class MainView extends VerticalLayout {
     public MainView(){
-        add(new H1("hello"));
+        add(new H1("Select page"));
     }
 }

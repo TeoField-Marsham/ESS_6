@@ -47,9 +47,9 @@ public class AuthorView extends VerticalLayout{
     private void configureForm() {
         form = new AuthorForm();
         form.setWidth("25em");
-        form.addSaveListener(this::saveAuthor); // <1>
-        form.addDeleteListener(this::deleteAuthor); // <2>
-        form.addCloseListener(e -> closeEditor()); // <3>
+        form.addSaveListener(this::saveAuthor);
+        form.addDeleteListener(this::deleteAuthor);
+        form.addCloseListener(e -> closeEditor());
     }
 
     private void saveAuthor(AuthorForm.SaveEvent event) {

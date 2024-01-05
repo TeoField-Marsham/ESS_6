@@ -47,9 +47,9 @@ public class PublisherView extends VerticalLayout{
     private void configureForm() {
         form = new PublisherForm();
         form.setWidth("25em");
-        form.addSaveListener(this::savePublisher); // <1>
-        form.addDeleteListener(this::deletePublisher); // <2>
-        form.addCloseListener(e -> closeEditor()); // <3>
+        form.addSaveListener(this::savePublisher);
+        form.addDeleteListener(this::deletePublisher);
+        form.addCloseListener(e -> closeEditor());
     }
 
     private void savePublisher(PublisherForm.SaveEvent event) {

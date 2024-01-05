@@ -64,9 +64,9 @@ public class BookView extends VerticalLayout{
             form = new BookForm(authors, publishers, authorService, publisherService);
         }
         form.setWidth("25em");
-        form.addSaveListener(this::saveBook); // <1>
-        form.addDeleteListener(this::deleteBook); // <2>
-        form.addCloseListener(e -> closeEditor()); // <3>
+        form.addSaveListener(this::saveBook);
+        form.addDeleteListener(this::deleteBook);
+        form.addCloseListener(e -> closeEditor());
     }
 
     private boolean checkNull(){
