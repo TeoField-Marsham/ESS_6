@@ -10,11 +10,16 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import jakarta.annotation.security.PermitAll;
+import org.example.ess_6.model.Author;
 import org.example.ess_6.model.Book;
+import org.example.ess_6.model.Publisher;
 import org.example.ess_6.service.AuthorService;
 import org.example.ess_6.service.BookService;
 import org.example.ess_6.service.PublisherService;
 import org.springframework.context.annotation.Scope;
+
+import java.util.*;
+
 @SpringComponent
 @Scope("prototype")
 @PermitAll
@@ -49,11 +54,27 @@ public class BookView extends VerticalLayout{
     }
 
     private void configureForm() {
+        if(checkNull())
         form = new BookForm(authorService.findAllAuthors(""), publisherService.findAllPublishers(""));
+        else{
+            List<Author> authors = Collections.emptyList();
+            List<Publisher> publishers = Collections.emptyList();
+            form = new BookForm(authors, publishers);
+        }
         form.setWidth("25em");
         form.addSaveListener(this::saveBook); // <1>
         form.addDeleteListener(this::deleteBook); // <2>
         form.addCloseListener(e -> closeEditor()); // <3>
+    }
+
+    private boolean checkNull(){
+        try{
+            authorService.findAllAuthors("");
+            publisherService.findAllPublishers("");
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
     private void saveBook(BookForm.SaveEvent event) {
