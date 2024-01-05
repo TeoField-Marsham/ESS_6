@@ -17,8 +17,12 @@ public class PublisherService {
         this.publisherRepository = publisherRepository;
     }
 
-    public List<Publisher> findAllPublishers() {
-        return publisherRepository.findAll();
+    public List<Publisher> findAllPublishers(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return publisherRepository.findAll();
+        } else {
+            return publisherRepository.search(stringFilter);
+        }
     }
 
     public Optional<Publisher> findPublisherById(Long id) {

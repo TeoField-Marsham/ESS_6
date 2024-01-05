@@ -1,3 +1,5 @@
+import './dnd-polyfill-loader.js';
+
 window.Vaadin = window.Vaadin || {};
 window.Vaadin.Flow = window.Vaadin.Flow || {};
 window.Vaadin.Flow.dndConnector = {
@@ -10,7 +12,7 @@ window.Vaadin.Flow.dndConnector = {
         event.dataTransfer.dropEffect = effect;
       }
 
-      if (effect !== 'none') {
+      if (effect && effect !== 'none') {
         /* #7108: if drag moves on top of drop target's children, first another ondragenter event
          * is fired and then a ondragleave event. This happens again once the drag
          * moves on top of another children, or back on top of the drop target element.

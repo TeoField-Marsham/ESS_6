@@ -58,7 +58,6 @@
         component: child,
         checked: child._checked,
         keepOpen: child._keepOpen,
-        className: child.className,
         theme: child.__theme
       };
       // Do not hardcode tag name to allow `vaadin-menu-bar-item`

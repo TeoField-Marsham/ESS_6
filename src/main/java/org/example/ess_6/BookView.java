@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Scope;
 @SpringComponent
 @Scope("prototype")
 @PermitAll
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "book", layout = MainLayout.class)
 
 public class BookView extends VerticalLayout{
     Grid<Book> grid = new Grid<>(Book.class);
@@ -49,7 +49,7 @@ public class BookView extends VerticalLayout{
     }
 
     private void configureForm() {
-        form = new BookForm(authorService.findAllAuthors(""), publisherService.findAllPublishers());
+        form = new BookForm(authorService.findAllAuthors(""), publisherService.findAllPublishers(""));
         form.setWidth("25em");
         form.addSaveListener(this::saveBook); // <1>
         form.addDeleteListener(this::deleteBook); // <2>
